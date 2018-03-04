@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-<script src="./api.js"></script>
+<script src="api.js"></script>
 <script src="./node_modules/web3/dist/web3.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
@@ -35,6 +35,16 @@ body, html {
 }
 </style>
 
+
+<script>
+  function copyFunction() {
+    var copyText = document.getElementById("blitz-copy");
+    copyText.select();
+    document.execCommand("Copy");
+    alert("Copied text: " + copyText.value);
+  }
+</script>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
      google.charts.load('current', {'packages':['corechart']});
@@ -42,96 +52,32 @@ body, html {
      var assets_sold = 10;
      var divisor = getDivisor();
      function drawChart() {
-
        var data = google.visualization.arrayToDataTable([
          ['Task', 'Hours per Day'],
-         ['Sold to investor', (getTotalTokens() - getRemainingTokens()) / divisor],
-         ['Availible to investors',  getRemainingTokens() / divisor],
-         ['Allocated to Team',     300 ]
+         ['Sold to Investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Availible to Investors',  getRemainingTokens() / divisor],
+         ['Allocated to Team',     300000000000000000000 ]
 ]);
-
        var options = {
          colors: ['purple','#0080ff', '#ff0000'],
          legend: {position: 'none'},
          pieSliceText: "none"
        };
-
        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
        chart.draw(data, options);
-
        window.setInterval(function() {chart.draw(data, options); 
        var data = google.visualization.arrayToDataTable([
          ['Task', 'Hours per Day'],
-         ['Sold to investor', (getTotalTokens() - getRemainingTokens()) / divisor],
-         ['Availible to investors',  getRemainingTokens() / divisor],
-         ['Allocated to Team',     300 ]
+         ['Sold to Investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Availible to Investors',  getRemainingTokens() / divisor],
+         ['Allocated to Team',     300000000000000000000 ]
          
        ]);
 chart.draw(data, options);
-
 }, 9000)
      }
-   </script>
-
-  <script>
-  var countDownDate = new Date("Sep 5, 2018 19:37:25").getTime();
-  var x = setInterval(function() {
-    var now = new Date().getTime();
-   var distance = countDownDate - now;
-   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-   
-   var tday = days.toString();
-   if (days < 10) {
-    tday = "0" + tday;
-   }
-  
-   var thour = hours.toString();
-   if (hours < 10) {
-      thour = "0" + thour;
-    }
-
-  
-   var tminute = minutes.toString();
-   if (minutes < 10) {
-      tminute = "0" + tminute;
-    }
-
-  
-   var tsecond = seconds.toString();
-   if (seconds < 10) {
-      tsecond = "0" + tsecond;
-    }
-
-
-    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
-      document.getElementByID("daanclock").innerHTML = "Token sale over"
-    }
-
-    else {
-      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
-       + tminute + ":" + tsecond;
-    }   
-
-   if (distance < 0) {
-     clearInterval(x);
-     document.getElementById("daanclock").innerHTML = "EXPIRED";
-   }
-  }, 1000);
-  </script>
-
-<script>
-  function copyFunction() {
-  var copyText = document.getElementById("blitz-copy");
-  copyText.select();
-  document.execCommand("Copy");
-  alert("Copied text: " + copyText.value);
-  }
 </script>
+
 
 
 </head>
@@ -268,7 +214,7 @@ chart.draw(data, options);
     <div class="blitz-col m6 blitz-center" style="margin-top:6%; font-family:'Lato'!important">
       <p style="text-align:center">Time until end of coin sale</p>
       <div id="daanclock" class="blitz-center blitz-clock-background blitz-clock" style="font-family:'Lato';width:200px; height:25px; position:relative; left:157px; z-index:5; top:50%"></div>
-      <div style="position:relative;left: 100px; top: -30px; z-index:0">
+      <div style="position:relative;left: 100px; top: -5px; z-index:0">
         <div id="piechart" class="blitz-center" style="width: 300px; height: 300px;"></div>
       </div>
     </div>
@@ -327,15 +273,17 @@ chart.draw(data, options);
 
 <!-- Pricing Section -->
 <div class="blitz-container blitz-center blitz-dark-grey" style="padding:60px 16px; height: 500px" id="pricing">
-  <h3 id="coinsLeft"> (SUPPLY OF COINS)</h3>
-  <p id="price">(PRICE OF COINS)</p>
+  <h3 id="coinsLeft"> .</h3>
+  <p id="price"> .</p>
   <div class="blitz-col m6" style="margin-top:10%; margin-bottom:5%">
-    <input type="text" value="Address" id="blitz-copy" readonly>
-    <button onclick="copyFunction()" style="width: 25%; background-color:white" value="Address">Copy Address</button>
+    <input type="text" value="0x8399d31135d5d6ea3723207fd6e66a7aee664bf4" id="blitz-copy" style="width: 62.5%" readonly>
+    <button onclick="copyFunction()" style="width: 20%; background-color:white" value="Address">Copy Address</button>
   </div>
   <div class="blitz-col m6" style="margin-top:10%; margin-bottom:5%">
-    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=0x8399d31135d5d6ea3723207fd6e66a7aee664bf4&choe=UTF-8"/>
+    <img style="height:30%;width:30%;position:relative;top:-80px"src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=0x8399d31135d5d6ea3723207fd6e66a7aee664bf4&choe=UTF-8"/>
   </div>
+
+  <p style="text-align:center">**Don'
 
 
 
@@ -346,7 +294,7 @@ chart.draw(data, options);
 
 <!-- Footer -->
 <footer class="blitz-center blitz-padding-64">
-  <a href="#home" class="blitz-button blitz-light-grey"><i class="fa fa-arrow-up blitz-margin-right"></i>Back to the top</a>
+  <a href="#home" class="blitz-button blitz-light-grey">Blockstack Admin Interface</a>
   <div class="blitz-xlarge blitz-section">
     <a href="https://www.facebook.com/leeholim"><i class="fa fa-facebook-official blitz-hover-opacity"></i></a>
     <a href="https://www.instagram.com/drinkbananawave/"><i class="fa fa-instagram blitz-hover-opacity"></i></a>
@@ -358,36 +306,62 @@ chart.draw(data, options);
 </footer>
  
 
-<script type='text/javascript'>
-    // Wrap every letter in a span
-$('.ml6 .letters').each(function(){
-  $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-});
 
-anime.timeline({loop: true})
-  .add({
-    targets: '.ml6 .letter',
-    translateY: ["1.1em", 0],
-    translateZ: 0,
-    duration: 750,
-    delay: function(el, i) {
-      return 50 * i;
-    }
-  }).add({
-    targets: '.ml6',
-    opacity: 0,
-    duration: 1000,
-    easing: "easeOutExpo",
-    delay: 1000
-  });
+<script>
+  init();
+  setupHandlers();
+  document.getElementById("blitz-copy").value = getAddress();
 </script>
 
 <script>
-	init();
-	setupHandlers();
-	document.getElementById("blitz-copy").value = getAddress();
-</script>
+  var x = setInterval(function() {
+  var now = new Date().getTime();
+  var countDownDate = 1524493580929;
+   var distance = countDownDate - now;
+   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+   
+   var tday = days.toString();
+   if (days < 10) {
+    tday = "0" + tday;
+   }
+  
+   var thour = hours.toString();
+   if (hours < 10) {
+      thour = "0" + thour;
+    }
+
+  
+   var tminute = minutes.toString();
+   if (minutes < 10) {
+      tminute = "0" + tminute;
+    }
+
+  
+   var tsecond = seconds.toString();
+   if (seconds < 10) {
+      tsecond = "0" + tsecond;
+    }
+
+
+    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+      document.getElementByID("daanclock").innerHTML = "Token sale over"
+    }
+
+    else {
+      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
+       + tminute + ":" + tsecond;
+    }   
+
+   if (distance < 0) {
+     clearInterval(x);
+     document.getElementById("daanclock").innerHTML = "EXPIRED";
+   }
+  }, 1000);
+</script>
 
 
 
