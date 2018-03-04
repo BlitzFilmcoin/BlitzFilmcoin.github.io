@@ -24,13 +24,22 @@ var blitz;
 var blitzContract;
 var web3;
 var address = "0x8399d31135d5d6ea3723207fd6e66a7aee664bf4"
+var divisor = 1000000000000000000;
+
+function getDivisor() {
+	return divisor;
+}
+
+function getAddress() {
+	return address;
+}
 
 function init() {
 	// init web3
 	if (typeof web3 !== 'undefined') {
 	    web3 = new Web3(web3.currentProvider);
 	} else {
-	    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/RHSI86q9yNFOdLrzBvC2" /*"http://localhost:8545"*/));
+	    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/" /*"http://localhost:8545"*/));
 	}
 
 	// init Blitz -- params: Operating Ethereum account
@@ -433,7 +442,7 @@ function init() {
 
 function setupHandlers() {
 	updateValues();
-	window.setInterval(updateValues, 1000);
+	window.setInterval(updateValues, 6000);
 
 /*
 	y = web3.eth.filter('latest');
@@ -468,8 +477,8 @@ function getEndTime() {
 
 function updateValues() {
 	document.getElementById("price").innerHTML = "Token price: " +getTokenPrice() + " ETH";
-	document.getElementById("coinsLeft").innerHTML = "Tokens still to be sold by us: " + getRemainingTokens();
-	document.getElementById("coinsTotal").innerHTML = "Total amount of tokens: " + getTotalTokens();
+	document.getElementById("coinsLeft").innerHTML = getRemainingTokens() / getDivisor() + " coins still available";
+	//document.getElementById("coinsTotal").innerHTML = "Total amount of tokens: " + getTotalTokens();
 }
 
 
