@@ -60,12 +60,60 @@ body, html {
      }
    </script>
 
+  <script>
+  var countDownDate = new Date("Sep 5, 2018 19:37:25").getTime();
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+   var distance = countDownDate - now;
+   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+   
+   var tday = days.toString();
+   if (days < 10) {
+    tday = "0" + tday;
+   }
+  
+   var thour = hours.toString();
+   if (hours < 10) {
+      thour = "0" + thour;
+    }
+
+  
+   var tminute = minutes.toString();
+   if (minutes < 10) {
+      tminute = "0" + tminute;
+    }
+
+  
+   var tsecond = seconds.toString();
+   if (seconds < 10) {
+      tsecond = "0" + tsecond;
+    }
+
+
+    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+      document.getElementByID("daanclock").innerHTML = "Token sale over"
+    }
+
+    else {
+      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
+       + tminute + ":" + tsecond + "<br>" + "Time until end of token sale";
+    }   
+
+   if (distance < 0) {
+     clearInterval(x);
+     document.getElementById("daanclock").innerHTML = "EXPIRED";
+   }
+  }, 1000);
+  </script>
 
 
 </head>
 
 <body>
-
 
 <!-- Navbar (sit on top) -->
 <div class="blitz-top">
@@ -73,9 +121,10 @@ body, html {
     <a href="#home" class="blitz-bar-item blitz-button blitz-wide">BLITZ PROJECT</a>
     <!-- Right-sided navbar links -->
     <div class="blitz-right blitz-hide-small">
+      <a href="#about" class="blitz-bar-item blitz-button"><i class="fa fa-youtube-play"></i> ABOUT</a>
       <a href="#film" class="blitz-bar-item blitz-button"><i class="fa fa-camera-retro"></i> WATCH</a>
       <a href="#problem" class="blitz-bar-item blitz-button"><i class="fa fa-th"></i> PROBLEM</a>
-      <a href="#work" class="blitz-bar-item blitz-button"><i class="fa fa-film"></i> BLITZ</a>
+      <a href="#work" class="blitz-bar-item blitz-button"><i class="fa fa-film"></i> BLITZ FILMCOIN</a>
       <a href="#team" class="blitz-bar-item blitz-button"><i class="fa fa-user"></i> TEAM</a>
       <a href="#pricing" class="blitz-bar-item blitz-button"><i class="fa fa-usd"></i> INVEST</a>
     </div>
@@ -92,27 +141,39 @@ body, html {
 <!-- Header with full-height image -->
 <header class="bgimg-1 blitz-display-container blitz-grayscale-min" id="home">
   <div class="blitz-display-left blitz-text-white" style="padding:48px">
-    <span class="blitz-jumbo blitz-hide-small blitz-animate-top2">Blitz</span><br>
+    <span class="blitz-jumbo blitz-hide-small blitz-animate-top2">Blitz FilmCoin</span><br>
 
     <p class="ml6">
         <span class="text-wrapper" style="margin-left: 2px">
-            <span class="letters blitz-animate-top">A token raise to fund the Blitz Project and earn returns</span>
+            <span class="letters blitz-animate-top">A coin to fund the post-production and <br> distribution of the Blitz Project</span>
         </span>
     </p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 
-    <p><a href="#pricing" class="blitz-button blitz-white blitz-padding-large blitz-large blitz-margin-top blitz-opacity blitz-hover-opacity-off">Purchase tokens to fund the Blitz Project</a></p>
+    <p><a href="#pricing" class="blitz-button blitz-white blitz-padding-large blitz-large blitz-margin-top blitz-opacity blitz-hover-opacity-off">Purchase tokens</a></p>
   </div> 
 </header>
 
-<!-- About Section -->
+
+ <!-- About Section -->
+<div class="blitz-container blitz-light-grey" style="padding:60px 16px; border:none!important" id="about">
+  <div class="blitz-row-padding" style="margin-left: 20px">
+    <h1 style="font-color:#1D2B6A;" class="blitz-animate-top">The Blitz Project</h1>
+    <div class="blitz-col m6">
+      <p>The Blitz Project is a documentary that accompanies artist Julius von Bismarck and his team to the remote region of Lake Maracaibo, Venezuela. This region is known for the world's highest frequency of thunderstorms. Here, Julius wants to create lightning sculptures and immortalize them via large scale photographs. The artist has developed rockets to shoot into the storm clouds. These rockets can reach a height of up to 800 meters, have an aluminum tip and are connected to the ground through a fine silver-coated kevlar thread. Bismarck’s goal is to attract lightning bolts and direct them straight down the line into a predetermined entry point on a floating platform in the middle of the lake. Julius’ goal is to defeat one of the greatest forces of nature is. Can this work out? The films follows this expedition with a scientific, philosophical and artistic mission.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Video Section -->
 <div class="blitz-container" align="middle" style="padding:80px 16px" id="film">
       <div class="video-wrapper">
         <iframe class="embed-container" style="border:none!important" src="https://player.vimeo.com/video/203098041" width="80%" height="500" webkitallowfullscreen  allowfullscreen></iframe>'
     </div>
 </div>
 
-<!-- Promo Section - "We know design" -->
+<!-- Problem Section -->
 <div class="blitz-container blitz-light-grey" style="padding:60px 16px; border:none!important" id="problem">
   <div class="blitz-row-padding" style="margin-left: 20px">
     <h1 style="font-color:#1D2B6A;" class="blitz-animate-top">The Problem</h1>
@@ -120,14 +181,11 @@ body, html {
       <p>Independent films often cost hundreds of thousands of dollars to fund. Capital is usually provided by investors; however, investors impose restrictions on the content of films, inhibiting visionary and creative quality. <br/><br/>One such film is the <b>Blitz Project</b> - a film accompanying the artist Julius von Bismarck on his mission to create lightning sculptures and photographically immortalize. We have created a token sale platform on the Ethereum network for the Blitz Project to help fund the post-production of the film. The Blitz token framework can be used to fund future independent films.</p>
       <p style="margin-top:40px"><a href="https://www.blitzfilm.net/" class="blitz-button blitz-black"><i class="fa fa-th"> </i> More About Blitz</a></p>
     </div>
-    <div class="blitz-col m6">
-
-    </div>
   </div>
 </div>
 
 
-<!-- Promo Section "Statistics" -->
+<!-- Statistics Section -->
 <div class="blitz-container blitz-row blitz-center blitz-dark-grey blitz-padding-64">
   <div class="blitz-quarter">
     <span class="blitz-xxlarge blitz-animate-opacity">14+</span>
@@ -150,7 +208,7 @@ body, html {
 <!-- Work Section -->
 <div class="blitz-container blitz-white" style="padding:60px 16px" id="work">
   <h3 class="blitz-center">How Does It Work?</h3>
-  <p class="blitz-center blitz-large">Blitz tokens entitle you to portions of the film's revenue</p>
+  <p class="blitz-center blitz-large">The Blitz FilmCoin entitles you to participate in the future revenues that the film will generate</p>
 
   <div class="blitz-row-padding" style="margin-top:40px">
     <div class="blitz-col l3 m6 blitz-center">
@@ -176,17 +234,17 @@ body, html {
   </div>
 </div>
 
-<!-- Skills Section -->
-  <div class="blitz-row-padding" style="margin-top:5%; margin-left:2.5%; margin-right:3%">
-    <div class="blitz-col m6">
+<!-- Methodology Section -->
+  <div class="blitz-row-padding" style="margin-left:2.5%; margin-right:3%">
+    <div class="blitz-col m6" style="margin-top:5%">
       <p>We've made it easy for you to purchase a Blitz token.</p>
       <p>Pay with Ethereum and receive Blitz.</p>
       <p>Wait for the campaign to meet a minimum threshold while your Ethereum is securely held.</p>
       <p>If the threshold is met, then the film will go into production, and you will be rewarded Ethereum depending on the amount of Blitz tokens you hold when the film begins to gross. However if the threshold is not met, rest assured! Your funds will be returned right back to you.</p>
     </div>
-    <div class="blitz-col m6 blitz-center">
-      <h3>Current allocation of tokens</h3>
-      <div style="position:relative;left: 95px">
+    <div class="blitz-col m6 blitz-center" style="margin-top:6%; font-family:'Lato'!important">
+      <div id="daanclock" class="blitz-center" style="font-family:'Lato';width:400px; height:200px; position:relative; left:55px; z-index:1"></div>
+      <div style="position:relative;left: 110px;top: -150px">
         <div id="piechart" class="blitz-center" style="width: 300px; height: 300px;"></div>
       </div>
     </div>
@@ -291,6 +349,8 @@ anime.timeline({loop: true})
     delay: 1000
   });
 </script>
+
+
 
 
 
