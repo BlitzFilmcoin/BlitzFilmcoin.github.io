@@ -1,8 +1,8 @@
 pragma solidity ^0.4.17;
 /**
  * BlitzCoin for Investment in Films - especially Blitz, created at the Blockstack Hackathon Berlin
- * Website: https://blitzfilmcoin.github.io
- * Github: https://github.com/BlitzFilmcoin
+ *  - fixed amount of token
+ *  - partially bought, partially distributed to the team
  * /
 
 
@@ -153,12 +153,11 @@ contract ERC20Basic {
        * Blitz constructor
        * Define Blitz details and contribution period
        */
-  /**
-       * Blitz constructor
-       * Define Blitz details and contribution period
-       */
-      function RealBlitz(uint256 _icoStart, uint256 _icoEnd, uint256 _tokensPerEth) public {
-       
+      //function Blitz(uint256 _icoStart, uint256 _icoEnd, uint256 _tokensPerEth) public {
+      function Blitz() public {
+        uint256 _icoStart = 0;
+        uint256 _icoEnd = 999999999;
+        uint256 _tokensPerEth = 1;
         // require (_icoStart >= now);
         require (_icoEnd >= _icoStart);
         require (_tokensPerEth > 0);
@@ -172,14 +171,6 @@ contract ERC20Basic {
         // as a safety measure tempory set the sale address to something else than 0x0
         currentSaleAddress = owner;
       }
-      
-      
-       function Blitz() public {
-         uint256 _icoStart = 0;
-         uint256 _icoEnd = 999999999;
-         uint256 _tokensPerEth = 1;
-         RealBlitz(_icoStart,_icoEnd,_tokensPerEth);
-       }
       /**
        *
        * Function allowing investors to participate in the Blitz Token Sale.
