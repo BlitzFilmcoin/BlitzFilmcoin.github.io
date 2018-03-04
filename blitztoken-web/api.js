@@ -467,7 +467,7 @@ function getEndTime() {
 }
 
 function updateValues() {
-	document.getElementById("price").innerHTML = "Token price: " +getTokenPrice();
+	document.getElementById("price").innerHTML = "Token price: " +getTokenPrice() + " ETH";
 	document.getElementById("coinsLeft").innerHTML = "Tokens still to be sold by us: " + getRemainingTokens();
 	document.getElementById("coinsTotal").innerHTML = "Total amount of tokens: " + getTotalTokens();
 }
@@ -475,7 +475,7 @@ function updateValues() {
 
 function getTokenPrice() {
 	var tokensPerEth = web3.toDecimal(blitz.tokensPerEth());
-	return tokensPerEth > 0 ? 1 / tokensPerEth : 0
+	return tokensPerEth > 0 ? web3.fromWei(1 / tokensPerEth) : 0
 }
 
 function getTotalTokens() {
