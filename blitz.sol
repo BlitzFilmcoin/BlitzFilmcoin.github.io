@@ -277,7 +277,13 @@ contract ERC20Basic {
       uint256 distributeTmp = distribute;
       distribute=0;
       for (uint256 i = 0; i < beneficiaries.length; i++) {
-        beneficiaries[i].transfer(balances[beneficiaries[i]].div(totalEthAmount).mul(distributeTmp));
+          
+          
+          uint256 blalanceOfShareholder = balances[beneficiaries[i]];
+          uint256 part = blalanceOfShareholder.mul(distributeTmp);
+          uint256 payout = part.div(totalEthAmount);
+    
+        beneficiaries[i].transfer(payout);
       }
 
     }
