@@ -60,6 +60,19 @@ body, html {
        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
        chart.draw(data, options);
+
+
+       window.setInterval(function() {chart.draw(data, options); 
+       var data = google.visualization.arrayToDataTable([
+         ['Task', 'Hours per Day'],
+         ['Sold to investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Availible to investors',  getRemainingTokens() / divisor],
+         ['Allocated to Team',     300 ]
+         
+       ]);
+chart.draw(data, options);
+
+}, 9000)
      }
    </script>
 
@@ -354,9 +367,8 @@ anime.timeline({loop: true})
 </script>
 
 <script>
-init();
-setupHandlers();
-window.setInterval(drawChart, 3000)
+	init();
+	setupHandlers();
 </script>
 
 
