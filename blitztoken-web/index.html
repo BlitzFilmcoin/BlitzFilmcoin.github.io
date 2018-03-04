@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-<script src="api.js"></script>
+<script src="./api.js"></script>
 <script src="./node_modules/web3/dist/web3.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
@@ -54,7 +54,7 @@ body, html {
      function drawChart() {
        var data = google.visualization.arrayToDataTable([
          ['Task', 'Hours per Day'],
-         ['Sold to Investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Sold to Investors', (getTotalTokens() - getRemainingTokens()) / divisor],
          ['Availible to Investors',  getRemainingTokens() / divisor],
          ['Allocated to Team',     300000000000000000000 ]
 ]);
@@ -68,7 +68,7 @@ body, html {
        window.setInterval(function() {chart.draw(data, options); 
        var data = google.visualization.arrayToDataTable([
          ['Task', 'Hours per Day'],
-         ['Sold to Investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Sold to Investors', (getTotalTokens() - getRemainingTokens()) / divisor],
          ['Availible to Investors',  getRemainingTokens() / divisor],
          ['Allocated to Team',     300000000000000000000 ]
          
@@ -147,7 +147,7 @@ chart.draw(data, options);
   <div class="blitz-row-padding" style="margin-left: 20px">
     <h1 style="font-color:#1D2B6A;" class="blitz-animate-top">The Problem</h1>
     <div class="blitz-col m6">
-      <p>Independent films often cost hundreds of thousands of dollars to fund, and the traditional funding strategy for independent films inhibits visionary and creative quality of the production. <br><br>We are pioneering a new era in film funding with the Blitz FilmCoin. The coin entitles its holders to trasparently participate in film revenues that are generated with the release of the Blitz Project. This token framework will later be used to fund other independent films with a strong artistic vision, commercial potential and audience appeal.</p>
+      <p>Independent films often cost hundreds of thousands of dollars to fund, and the traditional funding strategy for independent films inhibits visionary and creative quality of the production. <br><br>We are pioneering a new era in film funding with our Blitz FilmCoin. The coin entitles its holders to trasparently participate in film revenues that are generated with the release of the Blitz Project. This token framework will later be used to fund other independent films with a strong artistic vision, commercial potential and audience appeal.</p>
       <p style="margin-top:40px"><a href="https://www.blitzfilm.net/" class="blitz-button blitz-black"><i class="fa fa-th"> </i> More About Blitz</a></p>
     </div>
   </div>
@@ -224,7 +224,7 @@ chart.draw(data, options);
 <!-- Team Section -->
 <div class="blitz-container blitz-light-grey" style="padding:60px 16px" id="team">
   <h3 class="blitz-center blitz-animate-opacity">The Film Crew</h3>
-  <p class="blitz-center blitz-large">Meet the groundbreaking team behind the Blitz Project</p>
+  <p class="blitz-center blitz-large">Meet the groundbreaking team behind the Blitz Project film</p>
   <div class="blitz-row-padding blitz-grayscale" style="margin-top:64px">
     <div class="blitz-col l3 m6 blitz-margin-bottom">
       <div class="blitz-card">
@@ -283,9 +283,7 @@ chart.draw(data, options);
     <img style="height:30%;width:30%;position:relative;top:-80px"src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=0x8399d31135d5d6ea3723207fd6e66a7aee664bf4&choe=UTF-8"/>
   </div>
 
-  <p style="text-align:center">**Don'
-
-
+  <span style="color: black!important; font-size:12px">*Disclaimer: Please do not send any ETH to this address</span>
 
 </div>
 
@@ -293,7 +291,7 @@ chart.draw(data, options);
 
 
 <!-- Footer -->
-<footer class="blitz-center blitz-padding-64">
+<footer class="blitz-center blitz-padding-64" style="margin-top:1%">
   <a href="#home" class="blitz-button blitz-light-grey">Blockstack Admin Interface</a>
   <div class="blitz-xlarge blitz-section">
     <a href="https://www.facebook.com/leeholim"><i class="fa fa-facebook-official blitz-hover-opacity"></i></a>
