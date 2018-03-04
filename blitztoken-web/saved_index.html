@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+<title>Blitz Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<script src="./api.js"></script>
+<script src="./node_modules/web3/dist/web3.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="odometer-theme-default.css" />
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+body, html {
+    height: 100%;
+    line-height: 1.8;
+}
+/* Full height image header */
+.bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("img/lightning.jpg");
+    min-height: 100%;
+}
+.blitz-bar .blitz-button {
+    padding: 16px;
+}
+</style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+     google.charts.load('current', {'packages':['corechart']});
+     google.charts.setOnLoadCallback(drawChart);
+     var divisor = 1000000000000000000;
+     var assets_sold = 10;
+     function drawChart() {
+
+       var data = google.visualization.arrayToDataTable([
+         ['Task', 'Hours per Day'],
+         ['Sold to investor', (getTotalTokens() - getRemainingTokens()) / divisor],
+         ['Availible to investors',  getRemainingTokens() / divisor],
+         ['Allocated to Team',     300 ]
+         
+       ]);
+
+       var options = {
+         colors: ['purple','#0080ff', '#ff0000'],
+         legend: {position: 'none'},
+         pieSliceText: "none"
+       };
+
+       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+       chart.draw(data, options);
+     }
+   </script>
+
+  <script>
+  var countDownDate = getEndTime();
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+   var distance = countDownDate - now;
+   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+   
+   var tday = days.toString();
+   if (days < 10) {
+    tday = "0" + tday;
+   }
+  
+   var thour = hours.toString();
+   if (hours < 10) {
+      thour = "0" + thour;
+    }
+
+  
+   var tminute = minutes.toString();
+   if (minutes < 10) {
+      tminute = "0" + tminute;
+    }
+
+  
+   var tsecond = seconds.toString();
+   if (seconds < 10) {
+      tsecond = "0" + tsecond;
+    }
+
+
+    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+      document.getElementByID("daanclock").innerHTML = "Token sale over"
+    }
+
+    else {
+      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
+       + tminute + ":" + tsecond + "<br>" + "Time until end of token sale";
+    }   
+
+   if (distance < 0) {
+     clearInterval(x);
+     document.getElementById("daanclock").innerHTML = "EXPIRED";
+   }
+  }, 1000);
+  </script>
+
+
+</head>
+
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="blitz-top">
+  <div class="blitz-bar blitz-white blitz-card" id="myNavbar">
+    <a href="#home" class="blitz-bar-item blitz-button blitz-wide">BLITZ PROJECT</a>
+    <!-- Right-sided navbar links -->
+    <div class="blitz-right blitz-hide-small">
+      <a href="#about" class="blitz-bar-item blitz-button"><i class="fa fa-youtube-play"></i> ABOUT</a>
+      <a href="#film" class="blitz-bar-item blitz-button"><i class="fa fa-camera-retro"></i> WATCH</a>
+      <a href="#problem" class="blitz-bar-item blitz-button"><i class="fa fa-th"></i> PROBLEM</a>
+      <a href="#work" class="blitz-bar-item blitz-button"><i class="fa fa-film"></i> BLITZ FILMCOIN</a>
+      <a href="#team" class="blitz-bar-item blitz-button"><i class="fa fa-user"></i> TEAM</a>
+      <a href="#pricing" class="blitz-bar-item blitz-button"><i class="fa fa-usd"></i> INVEST</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="blitz-bar-item blitz-button blitz-right blitz-hide-large blitz-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 blitz-display-container blitz-grayscale-min" id="home">
+  <div class="blitz-display-left blitz-text-white" style="padding:48px">
+    <span class="blitz-jumbo blitz-hide-small blitz-animate-top2">Blitz FilmCoin</span><br>
+
+    <p class="ml6">
+        <span class="text-wrapper" style="margin-left: 2px">
+            <span class="letters blitz-animate-top">A coin to fund the post-production and <br> distribution of the Blitz Project</span>
+        </span>
+    </p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
+    <p><a href="#pricing" class="blitz-button blitz-white blitz-padding-large blitz-large blitz-margin-top blitz-opacity blitz-hover-opacity-off">Purchase tokens</a></p>
+  </div> 
+</header>
+
+
+ <!-- About Section -->
+<div class="blitz-container blitz-light-grey" style="padding:60px 16px; border:none!important" id="about">
+  <div class="blitz-row-padding" style="margin-left: 20px">
+    <h1 style="font-color:#1D2B6A;" class="blitz-animate-top">The Blitz Project</h1>
+    <div class="blitz-col m6">
+      <p>The Blitz Project is a documentary that accompanies artist Julius von Bismarck and his team to the remote region of Lake Maracaibo, Venezuela. This region is known for the world's highest frequency of thunderstorms. Here, Julius wants to create lightning sculptures and immortalize them via large scale photographs. The artist has developed rockets to shoot into the storm clouds. These rockets can reach a height of up to 800 meters, have an aluminum tip and are connected to the ground through a fine silver-coated kevlar thread. Bismarck’s goal is to attract lightning bolts and direct them straight down the line into a predetermined entry point on a floating platform in the middle of the lake. Julius’ goal is to defeat one of the greatest forces of nature is. Can this work out? The films follows this expedition with a scientific, philosophical and artistic mission.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Video Section -->
+<div class="blitz-container" align="middle" style="padding:80px 16px" id="film">
+      <div class="video-wrapper">
+        <iframe class="embed-container" style="border:none!important" src="https://player.vimeo.com/video/203098041" width="80%" height="500" webkitallowfullscreen  allowfullscreen></iframe>'
+    </div>
+</div>
+
+<!-- Problem Section -->
+<div class="blitz-container blitz-light-grey" style="padding:60px 16px; border:none!important" id="problem">
+  <div class="blitz-row-padding" style="margin-left: 20px">
+    <h1 style="font-color:#1D2B6A;" class="blitz-animate-top">The Problem</h1>
+    <div class="blitz-col m6">
+      <p>Independent films often cost hundreds of thousands of dollars to fund. Capital is usually provided by investors; however, investors impose restrictions on the content of films, inhibiting visionary and creative quality. <br/><br/>One such film is the <b>Blitz Project</b> - a film accompanying the artist Julius von Bismarck on his mission to create lightning sculptures and photographically immortalize. We have created a token sale platform on the Ethereum network for the Blitz Project to help fund the post-production of the film. The Blitz token framework can be used to fund future independent films.</p>
+      <p style="margin-top:40px"><a href="https://www.blitzfilm.net/" class="blitz-button blitz-black"><i class="fa fa-th"> </i> More About Blitz</a></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Statistics Section -->
+<div class="blitz-container blitz-row blitz-center blitz-dark-grey blitz-padding-64">
+  <div class="blitz-quarter">
+    <span class="blitz-xxlarge blitz-animate-opacity">14+</span>
+    <br>(Blank 1)
+  </div>
+  <div class="blitz-quarter">
+    <span class="blitz-xxlarge blitz-animate-opacity">55+</span>
+    <br>(Blank 2)
+  </div>
+  <div class="blitz-quarter">
+    <span class="blitz-xxlarge blitz-animate-opacity">89+</span>
+    <br>(Blank 3)
+  </div>
+  <div class="blitz-quarter">
+    <span class="blitz-xxlarge blitz-animate-opacity">150+</span>
+    <br>(Blank 4)
+  </div>
+</div>
+
+<!-- Work Section -->
+<div class="blitz-container blitz-white" style="padding:60px 16px" id="work">
+  <h3 class="blitz-center">How Does It Work?</h3>
+  <p class="blitz-center blitz-large">The Blitz FilmCoin entitles you to participate in the future revenues that the film will generate</p>
+
+  <div class="blitz-row-padding" style="margin-top:40px">
+    <div class="blitz-col l3 m6 blitz-center">
+        <i class="fa fa-money" style="font-size:40px"></i>
+    </div>
+    <div class="blitz-col l3 m6 blitz-center">
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:40px"></i>
+    </div>
+    <div class="blitz-col l3 m6 blitz-center">
+      <i class="fa fa-play" style="font-size:40px"></i>
+    </div>
+    <div class="blitz-col l3 m6 blitz-center">
+      <i class="fa fa-line-chart" style="font-size:40px"></i>
+    </div>
+  </div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="blitz-modal blitz-black" onclick="this.style.display='none'">
+  <span class="blitz-button blitz-xxlarge blitz-black blitz-padding-large blitz-display-topright" title="Close Modal Image">×</span>
+  <div class="blitz-modal-content blitz-animate-zoom blitz-center blitz-transparent blitz-padding-64">
+    <img id="img01" class="blitz-image">
+    <p id="caption" class="blitz-opacity blitz-large"></p>
+  </div>
+</div>
+
+<!-- Methodology Section -->
+  <div class="blitz-row-padding" style="margin-left:2.5%; margin-right:3%">
+    <div class="blitz-col m6" style="margin-top:5%">
+      <p>We've made it easy for you to purchase a Blitz token.</p>
+      <p>Pay with Ethereum and receive Blitz.</p>
+      <p>Wait for the campaign to meet a minimum threshold while your Ethereum is securely held.</p>
+      <p>If the threshold is met, then the film will go into production, and you will be rewarded Ethereum depending on the amount of Blitz tokens you hold when the film begins to gross. However if the threshold is not met, rest assured! Your funds will be returned right back to you.</p>
+    </div>
+    <div class="blitz-col m6 blitz-center" style="margin-top:6%; font-family:'Lato'!important">
+      <div id="daanclock" class="blitz-center" style="font-family:'Lato';width:400px; height:200px; position:relative; left:55px; z-index:1"></div>
+      <div style="position:relative;left: 110px;top: -170px">
+        <div id="piechart" class="blitz-center" style="width: 300px; height: 300px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Team Section -->
+<div class="blitz-container blitz-light-grey" style="padding:60px 16px" id="team">
+  <h3 class="blitz-center blitz-animate-opacity">The Film Crew</h3>
+  <p class="blitz-center blitz-large">Meet the groundbreaking team behind the Blitz Project</p>
+  <div class="blitz-row-padding blitz-grayscale" style="margin-top:64px">
+    <div class="blitz-col l3 m6 blitz-margin-bottom">
+      <div class="blitz-card">
+        <img src="img/vik.jpg" alt="Viktor Jakovleski" style="width:100%">
+        <div class="blitz-container">
+          <h3>Viktor Jakovleski</h3>
+          <p class="blitz-opacity">Director</p>
+          <p>As a Germany Film and Television Academy graduate, Viktor Jakovleski has directed many award-winning films and is best known for his documentary, "Brimstone and Glory" (2017). Read more about Viktor <a href="http://www.imdb.com/name/nm1385594/">here</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="blitz-col l3 m6 blitz-margin-bottom">
+      <div class="blitz-card">
+        <img src="img/helge.jpeg" alt="Helge Albers" style="width:100%">
+        <div class="blitz-container">
+          <h3>Helge Albers</h3>
+          <p class="blitz-opacity">Producer</p>
+          <p> Helge Albers has produced over 30 award-wining feature films and feature documentaries in the past 16 years. He is best known for his productions of “Havanna, Mi Amor” and “Above and Below". Read more about Helge <a href="http://www.imdb.com/name/nm0016444/">here</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="blitz-col l3 m6 blitz-margin-bottom">
+      <div class="blitz-card">
+        <img src="img/martin.png" alt="Martin Hanslmayr" style="width:100%">
+        <div class="blitz-container">
+          <h3>Martin Hanslmayr</h3>
+          <p class="blitz-opacity">Camera</p>
+          <p>Martin Hanslmayr has shot many award-winning films including "Still Alive". His film, "On LIMIT", was nominated for the "Best Documentary" in the European Film Award. Read more about Martin <a href="http://martinhanslmayr.de/">here</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="blitz-col l3 m6 blitz-margin-bottom">
+      <div class="blitz-card">
+        <img src="img/kaya.jpg" alt="Kaya Inan" style="width:100%">
+        <div class="blitz-container">
+          <h3>Kaya Inan</h3>
+          <p class="blitz-opacity">Cut</p>
+          <p>Kaya is a two time nominee for "Best Editing" in the Swiss Film Awards. Some of his notable editing works include Cahier Africain (2016), Above and Below (2015) and Dalibor (2007). Read more about Kaya <a href="http://www.imdb.com/name/nm1346453/">here</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Pricing Section -->
+<div class="blitz-container blitz-center blitz-dark-grey" style="padding:60px 16px; height: 500px" id="pricing">
+  <h3>(SUPPLY OF COINS)</h3>
+  <p>(PRICE OF COINS)</p>
+
+  <p>(INVEST AREA)</p>
+
+</div>
+
+
+
+
+<!-- Footer -->
+<footer class="blitz-center blitz-padding-64">
+  <a href="#home" class="blitz-button blitz-light-grey"><i class="fa fa-arrow-up blitz-margin-right"></i>Back to the top</a>
+  <div class="blitz-xlarge blitz-section">
+    <a href="https://www.facebook.com/leeholim"><i class="fa fa-facebook-official blitz-hover-opacity"></i></a>
+    <a href="https://www.instagram.com/drinkbananawave/"><i class="fa fa-instagram blitz-hover-opacity"></i></a>
+    <a href="https://www.youtube.com/watch?v=oHg5SJYRHA0"><i class="fa fa-pinterest-p blitz-hover-opacity"></i></a>
+    <a href="https://twitter.com/LimLeeho"><i class="fa fa-twitter blitz-hover-opacity"></i></a>
+    <a href="https://www.linkedin.com/in/leeholim/"><i class="fa fa-linkedin blitz-hover-opacity"></i></a>
+  </div>
+</footer>
+ 
+
+<script type='text/javascript'>
+    // Wrap every letter in a span
+$('.ml6 .letters').each(function(){
+  $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+});
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml6 .letter',
+    translateY: ["1.1em", 0],
+    translateZ: 0,
+    duration: 750,
+    delay: function(el, i) {
+      return 50 * i;
+    }
+  }).add({
+    targets: '.ml6',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+</script>
+
+<script>
+init();
+setupHandlers();
+window.setInterval(drawChart, 3000)
+</script>
+
+
+
+
+</body>
+
+
+</html>
