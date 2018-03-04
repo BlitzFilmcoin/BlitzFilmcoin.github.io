@@ -1,11 +1,7 @@
 /**
-
 README
-
 This is using ropsten test net
-
 Todo:
-
 1. Change the global address var to the relevant contract address
 2. In init() function paste the ABI from remix into web3.eth.contract parameter
 3. Access the relevant functions and fields of the contract (look at the functions at the bottom for an example)
@@ -16,7 +12,6 @@ Todo:
 	init();
 	setupHandlers();
 	</script>
-
 */
 
 
@@ -24,7 +19,11 @@ var blitz;
 var blitzContract;
 var web3;
 var address = "0x8399d31135d5d6ea3723207fd6e66a7aee664bf4"
+<<<<<<< HEAD
+var divisor = 1;
+=======
 var divisor = 1000000000000000000;
+>>>>>>> b11f44275dba9e10f43801be1c33f31e8dddcb73
 
 function getDivisor() {
 	return divisor;
@@ -446,7 +445,6 @@ function setupHandlers() {
 
 /*
 	y = web3.eth.filter('latest');
-
 	y.watch((err, res) => {
 	  if (err) {
 	    console.log(`Watch error: ${err}`);
@@ -455,9 +453,6 @@ function setupHandlers() {
 	document.getElementById("price").innerHTML = getTokenPrice();
 	document.getElementById("coinsLeft").innerHTML = getRemainingTokens();
 	document.getElementById("coinsTotal").innerHTML = getTotalTokens();
-
-
-
 	    web3.eth.getBalance(address, (err, bal) => {
 	      if (err) {
 		console.log(`getBalance error: ${err}`);
@@ -477,7 +472,11 @@ function getEndTime() {
 
 function updateValues() {
 	document.getElementById("price").innerHTML = "Token price: " +getTokenPrice() + " ETH";
+<<<<<<< HEAD
+	document.getElementById("coinsLeft").innerHTML = "<b>" + getRemainingTokens() / getDivisor() + "</b>" + " coins available";
+=======
 	document.getElementById("coinsLeft").innerHTML = getRemainingTokens() / getDivisor() + " coins still available";
+>>>>>>> b11f44275dba9e10f43801be1c33f31e8dddcb73
 	//document.getElementById("coinsTotal").innerHTML = "Total amount of tokens: " + getTotalTokens();
 }
 
@@ -496,6 +495,8 @@ function getRemainingTokens() {
 	// totalSupply - totalAmount
 	return web3.toDecimal(blitz.hardCap()) - web3.toDecimal(blitz.totalSupply());
 }
+
+
 
 
 
