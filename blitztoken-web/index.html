@@ -77,6 +77,62 @@ chart.draw(data, options);
 }, 9000)
      }
 </script>
+    
+<script>
+  init();
+  setupHandlers();
+  document.getElementById("blitz-copy").value = getAddress();
+</script>
+
+<script>
+  var x = setInterval(function() {
+  var now = new Date().getTime();
+  var countDownDate = 1524493580929;
+   var distance = countDownDate - now;
+   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+   
+   var tday = days.toString();
+   if (days < 10) {
+    tday = "0" + tday;
+   }
+  
+   var thour = hours.toString();
+   if (hours < 10) {
+      thour = "0" + thour;
+    }
+
+  
+   var tminute = minutes.toString();
+   if (minutes < 10) {
+      tminute = "0" + tminute;
+    }
+
+  
+   var tsecond = seconds.toString();
+   if (seconds < 10) {
+      tsecond = "0" + tsecond;
+    }
+
+
+    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+      document.getElementByID("daanclock").innerHTML = "Token sale over"
+    }
+
+    else {
+      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
+       + tminute + ":" + tsecond;
+    }   
+
+   if (distance < 0) {
+     clearInterval(x);
+     document.getElementById("daanclock").innerHTML = "EXPIRED";
+   }
+  }, 1000);
+</script>
 
 
 
@@ -306,61 +362,7 @@ chart.draw(data, options);
  
 
 
-<script>
-  init();
-  setupHandlers();
-  document.getElementById("blitz-copy").value = getAddress();
-</script>
 
-<script>
-  var x = setInterval(function() {
-  var now = new Date().getTime();
-  var countDownDate = 1524493580929;
-   var distance = countDownDate - now;
-   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-   
-   var tday = days.toString();
-   if (days < 10) {
-    tday = "0" + tday;
-   }
-  
-   var thour = hours.toString();
-   if (hours < 10) {
-      thour = "0" + thour;
-    }
-
-  
-   var tminute = minutes.toString();
-   if (minutes < 10) {
-      tminute = "0" + tminute;
-    }
-
-  
-   var tsecond = seconds.toString();
-   if (seconds < 10) {
-      tsecond = "0" + tsecond;
-    }
-
-
-    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
-      document.getElementByID("daanclock").innerHTML = "Token sale over"
-    }
-
-    else {
-      document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":"
-       + tminute + ":" + tsecond;
-    }   
-
-   if (distance < 0) {
-     clearInterval(x);
-     document.getElementById("daanclock").innerHTML = "EXPIRED";
-   }
-  }, 1000);
-</script>
 
 
 
