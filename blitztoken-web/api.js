@@ -19,11 +19,7 @@ var blitz;
 var blitzContract;
 var web3;
 var address = "0x8399d31135d5d6ea3723207fd6e66a7aee664bf4"
-<<<<<<< HEAD
 var divisor = 1;
-=======
-var divisor = 1000000000000000000;
->>>>>>> b11f44275dba9e10f43801be1c33f31e8dddcb73
 
 function getDivisor() {
 	return divisor;
@@ -472,11 +468,7 @@ function getEndTime() {
 
 function updateValues() {
 	document.getElementById("price").innerHTML = "Token price: " +getTokenPrice() + " ETH";
-<<<<<<< HEAD
 	document.getElementById("coinsLeft").innerHTML = "<b>" + getRemainingTokens() / getDivisor() + "</b>" + " coins available";
-=======
-	document.getElementById("coinsLeft").innerHTML = getRemainingTokens() / getDivisor() + " coins still available";
->>>>>>> b11f44275dba9e10f43801be1c33f31e8dddcb73
 	//document.getElementById("coinsTotal").innerHTML = "Total amount of tokens: " + getTotalTokens();
 }
 
