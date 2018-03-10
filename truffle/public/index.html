@@ -1,10 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  <script src="../node_modules/web3/dist/web3.min.js"></script>
+  <script src="./api.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="odometer-theme-default.css" />
+
+  <script>
+    function copyFunction() {
+      var copyText = document.getElementById("blitz-copy");
+      copyText.select();
+      document.execCommand("Copy");
+      alert("Copied text: " + copyText.value);
+    }
+  </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+    var assets_sold = 10;
+    var divisor = getDivisor();
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Sold to Investors', (getTotalTokens() - getRemainingTokens()) / divisor],
+        ['Availible to Investors', getRemainingTokens() / divisor],
+        ['Allocated to Team', 300000000000000000000]
+      ]);
+      var options = {
+        colors: ['purple', '#0080ff', '#ff0000'],
+        legend: {
+          position: 'none'
+        },
+        pieSliceText: "none"
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+      window.setInterval(function () {
+        chart.draw(data, options);
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Sold to Investors', (getTotalTokens() - getRemainingTokens()) / divisor],
+          ['Availible to Investors', getRemainingTokens() / divisor],
+          ['Allocated to Team', 300000000000000000000]
+
+        ]);
+        chart.draw(data, options);
+      }, 9000)
+    }
+  </script>
+  <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -13,11 +73,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Truffle Box</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!--
+  <title>Blitz</title>
+</head>
+
+<body>
+  
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -27,5 +89,61 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
-  </body>
+
+
+  <script>
+    init();
+    setupHandlers();
+    document.getElementById("blitz-copy").value = getAddress();
+  </script>
+
+  <script>
+    var x = setInterval(function () {
+      var now = new Date().getTime();
+      var countDownDate = 1524493580929;
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+      var tday = days.toString();
+      if (days < 10) {
+        tday = "0" + tday;
+      }
+
+      var thour = hours.toString();
+      if (hours < 10) {
+        thour = "0" + thour;
+      }
+
+
+      var tminute = minutes.toString();
+      if (minutes < 10) {
+        tminute = "0" + tminute;
+      }
+
+
+      var tsecond = seconds.toString();
+      if (seconds < 10) {
+        tsecond = "0" + tsecond;
+      }
+
+
+      if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+        document.getElementByID("daanclock").innerHTML = "Token sale over"
+      } else {
+        document.getElementById("daanclock").innerHTML = tday + ":" + thour + ":" +
+          tminute + ":" + tsecond;
+      }
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("daanclock").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+  </script>
+</body>
+
 </html>
