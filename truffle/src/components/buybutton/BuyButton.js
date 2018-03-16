@@ -5,11 +5,11 @@ import React from "react";
 
 const BuyButton = ({ buyToken }) => {
   return (
-    <li className="pure-menu-item">
-      <a href="#" className="pure-menu-link" onClick={event => buyToken()}>
-        Buy
+    <div >
+      <a href="#" onClick={event => buyToken()}>
+        Buy Button
       </a>
-    </li>
+    </div>
   );
 };
 

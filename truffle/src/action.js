@@ -1,6 +1,6 @@
-import BlitzCrowdsaleContract from "../../../build/contracts/BlitzCrowdsale.json";
+import BlitzCrowdsaleContract from "../build/contracts/BlitzCrowdsale.json";
 import { browserHistory } from "react-router";
-import store from "../../store";
+import store from "./store";
 
 const contract = require("truffle-contract");
 
@@ -8,7 +8,7 @@ export const BUY_TOKKEN_PENDING = "BUY_TOKKEN_PENDING";
 export const BUY_TOKKEN_FULFILLED = "BUY_TOKKEN_FULFILLED";
 export const BUY_TOKKEN_REJECTED = "BUY_TOKKEN_REJECTED";
 
-export function buyToken(amount=0.1) {
+export function buyToken(amount=1) {
   // Double-check web3's status.
 
   return function(dispatch) {
@@ -34,26 +34,18 @@ export function buyToken(amount=0.1) {
 
         blitz.deployed().then(async function(instance) {
           blitzInstance = instance;
-          console.log('====================================');
-          console.log("Attempt to buy token.");
-          console.log('====================================');
           // Attempt to buy token.
           try {
             let result = await blitzInstance.buyTokens(coinbase, {
               value: web3.toWei(amount, "ether"),
               from: coinbase
             });
-            let weiRaised =  await blitzInstance.weiRaised()
-            
-            console.log("Wei Raised  " + weiRaised);
-
             console.log("Bought token " + result);
             dispatch({
               type: BUY_TOKKEN_FULFILLED,
               payload: result
             });
           } catch (error) {
-            console.error(error)
             dispatch({
               type: BUY_TOKKEN_REJECTED,
               payload: {
@@ -64,9 +56,7 @@ export function buyToken(amount=0.1) {
         });
       });
     } else {
-      console.error("did not work")
       dispatch({
-        
         type: BUY_TOKKEN_REJECTED,
         payload: { error: "Web3 is not initialized." }
       });

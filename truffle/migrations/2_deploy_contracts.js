@@ -48,7 +48,7 @@ async function liveDeploy(deployer, accounts) {
   const BigNumber = web3.BigNumber;
 
   const RATE = 1;
-  const startTime = latestTime() + duration.minutes(0);
+  const startTime = latestTime() + duration.minutes(1);
   const endTime = startTime + duration.weeks(1);
   const CAP = 10000;
   console.log([startTime, endTime, RATE, accounts[0]]);
