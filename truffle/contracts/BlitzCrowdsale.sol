@@ -43,7 +43,7 @@ contract BlitzCrowdsale is CappedCrowdsale, RefundableCrowdsale, MintedCrowdsale
         if (!goalReached()) {
             _weiAmount = _weiAmount.mul(12).div(10);
         }
-        
+         
         super._preValidatePurchase(_beneficiary, _weiAmount);
         require(weiRaised.add(_weiAmount) <= cap);
      }
