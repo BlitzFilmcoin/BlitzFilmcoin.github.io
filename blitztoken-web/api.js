@@ -490,6 +490,11 @@ function getRemainingTokens() {
 
 
 
+function getRemainingPreSaleTokens(){
+	// get remaining token left in presale discouted sale
+	return web3.toDecimal(blitz.PreSaleAmount()) - web3.toDecimal(blitz.totalSupply());
+
+} 
 
 
 

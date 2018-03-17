@@ -37,7 +37,6 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
   function claimRefund() public {
     require(isFinalized);
     require(!goalReached());
-
     vault.refund(msg.sender);
   }
 
