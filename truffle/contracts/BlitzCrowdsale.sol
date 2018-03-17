@@ -24,6 +24,8 @@ contract BlitzCrowdsale is CappedCrowdsale, RefundableCrowdsale, MintedCrowdsale
 
     function BlitzCrowdsale(uint256 _openingTime, uint256 _closingTime, uint256 _rate, 
                             address _wallet, uint256 _cap, MintableToken _token, uint256 _goal) public
+
+
         Crowdsale(_rate, _wallet, _token)
         CappedCrowdsale(_cap)
         TimedCrowdsale(_openingTime, _closingTime)
@@ -33,20 +35,18 @@ contract BlitzCrowdsale is CappedCrowdsale, RefundableCrowdsale, MintedCrowdsale
     {
         //As goal needs to be met for a successful crowdsale
         //the value needs to less or equal than a cap which is limit for accepted funds
-        require(_goal <= _cap);
-            
+        require(_goal <= _cap);        
         }
-    
-          
+        
     function softcapDiscount(address _beneficiary, uint256 _weiAmount) internal {
 
         if (!goalReached()) {
             _weiAmount = _weiAmount.mul(12).div(10);
         }
-         
         super._preValidatePurchase(_beneficiary, _weiAmount);
         require(weiRaised.add(_weiAmount) <= cap);
-     }
+        }
+    }
 
-   }
+    
 
