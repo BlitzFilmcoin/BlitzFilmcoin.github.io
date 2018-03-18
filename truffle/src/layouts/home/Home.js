@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 
 import BuyButton from "../../components/buybutton/BuyButton";
 import Stats from "../../components/stats/Stats";
+import Countdown from "react-countdown-now";
+
 class Home extends Component {
-  componentDidMount(){
+  componentDidMount() {
     //get data
   }
   render() {
@@ -24,15 +26,20 @@ class Home extends Component {
               truffle migrate<br />
               npm start<br />
             </p>
-        
-              <BuyButton />
-              { webBool ?(
-              <Stats web3={this.props.web3} />
-              ) :(
-                "NOT"
-              )
-              }
-       
+
+            <BuyButton />
+            {webBool ? (
+              <div>
+                <Stats web3={this.props.web3} stats={this.props.stats} />
+                {this.props.stats ? (
+                  <Countdown date={this.props.stats.closingTime * 1000} />
+                ) : (
+                  "Stats not loaded yet."
+                )}
+              </div>
+            ) : (
+              "NOT"
+            )}
           </div>
         </div>
       </main>
@@ -40,11 +47,11 @@ class Home extends Component {
   }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
   return {
-    web3: state.web3.web3Instance
+    web3: state.web3.web3Instance,
+    stats: state.crowdsale.stats
   };
 };
 
-export default connect(mapStateToProps, {  })(Home);
+export default connect(mapStateToProps, {})(Home);

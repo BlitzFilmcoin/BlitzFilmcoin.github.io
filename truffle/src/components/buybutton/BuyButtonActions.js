@@ -34,7 +34,7 @@ export function buyToken(amount=1) {
           console.error(error);
         }
 
-        blitz.at("0x8edccfba4dc45d83aab52933d0d5164a98894967").then(async function(instance) {
+        blitz.at("0xd86db945de9dfbc5d7bd2e9dac3d13218d4826d2").then(async function(instance) {
 
           blitzInstance = instance;
           console.log('====================================');

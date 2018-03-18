@@ -1,6 +1,6 @@
 const initialState = {
   bought: null,
-  stats: null
+  stats: {}
 };
 
 export const BUY_TOKKEN_PENDING = "BUY_TOKKEN_PENDING";

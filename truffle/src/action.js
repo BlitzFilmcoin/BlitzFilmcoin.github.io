@@ -10,16 +10,12 @@ export const CROWDSALE_STATS_REJECTED = "CROWDSALE_STATS_REJECTED";
 
 export function getCrowdsaleStats(web3) {
   // Double-check web3's status.
-  console.log( web3);
 
   return function(dispatch) {
     dispatch({ type: CROWDSALE_STATS_PENDING });
-    console.log( web3);
 
     if (typeof web3 !== "undefined") {
-console.log('====================================');
-console.log( web3);
-console.log('====================================');      // Using truffle-contract we create the blitz object.
+  // Using truffle-contract we create the blitz object.
       const blitz = contract(BlitzCrowdsaleContract);
 
       blitz.setProvider(web3.currentProvider);
@@ -35,11 +31,9 @@ console.log('====================================');      // Using truffle-contr
           dispatch({ type: CROWDSALE_STATS_REJECTED, payload: error });
           console.error(error);
         }
-console.log('====================================');
-console.log(process.env.CROWDSALE_CONTRACT_ADDRESS);
-console.log('====================================');
+
         blitz
-          .at("0x79bb8c52dcbd88f1565899f9ebc63fe5a0ffddc1")
+          .at("0xd86db945de9dfbc5d7bd2e9dac3d13218d4826d2")
           .then(async function(instance) {
             blitzInstance = instance;
             console.log("====================================");
