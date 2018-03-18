@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import BuyButton from "../../components/buybutton/BuyButton";
+import Stats from "../../components/stats/Stats";
 class Home extends Component {
   componentDidMount(){
     //get data
   }
   render() {
+    let webBool = !!this.props.web3;
+
     return (
       <main className="container">
         <div className="pure-g">
@@ -19,9 +24,15 @@ class Home extends Component {
               truffle migrate<br />
               npm start<br />
             </p>
-            <p>
+        
               <BuyButton />
-            </p>
+              { webBool ?(
+              <Stats web3={this.props.web3} />
+              ) :(
+                "NOT"
+              )
+              }
+       
           </div>
         </div>
       </main>
@@ -29,4 +40,11 @@ class Home extends Component {
   }
 }
 
-export default Home;
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    web3: state.web3.web3Instance
+  };
+};
+
+export default connect(mapStateToProps, {  })(Home);

@@ -24,11 +24,11 @@ contract BlitzCrowdsale is CappedCrowdsale, RefundableCrowdsale, MintedCrowdsale
     function BlitzCrowdsale(uint256 _openingTime, uint256 _closingTime, uint256 _rate, 
                             address _wallet, uint256 _cap, MintableToken _token, uint256 _goal) public
         Crowdsale(_rate, _wallet, _token)
-        MintedCrowdsale()
+        
         CappedCrowdsale(_cap)
         TimedCrowdsale(_openingTime, _closingTime)
         RefundableCrowdsale(_goal)
-        //WhitelistedCrowdsale()
+        MintedCrowdsale()
     {
         //As goal needs to be met for a successful crowdsale
         //the value needs to less or equal than a cap which is limit for accepted funds

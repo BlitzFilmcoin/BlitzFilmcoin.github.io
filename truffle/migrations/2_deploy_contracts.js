@@ -1,12 +1,9 @@
 var Migrations = artifacts.require("Migrations");
 
-var Ownable = artifacts.require("./zeppelin/ownership/Ownable.sol");
-var Killable = artifacts.require("./zeppelin/lifecycle/Killable.sol");
-var Authentication = artifacts.require("./Authentication.sol");
 var BlitzCrowdsale = artifacts.require("BlitzCrowdsale");
 var BlitzCrowdsaleToken = artifacts.require("BlitzCrowdsaleToken");
+var RefundVault = artifacts.require("RefundVault");
 
-var SafeMath = artifacts.require("./zeppelin/math/SafeMath.sol");
 
 module.exports = function(deployer, network, accounts) {
   deployer.deploy(Migrations);
@@ -18,8 +15,12 @@ module.exports = function(deployer, network, accounts) {
   //deployer.autolink(();
   //deployer.deploy(SafeMath);
 
-  return liveDeploy(deployer, accounts);
+  return deployBlitzToken(deployer, accounts);
 };
+
+function ether (n) {
+  return new web3.BigNumber(web3.toWei(n, 'ether'));
+}
 
 const duration = {
   seconds: function(val) {
@@ -44,30 +45,42 @@ const duration = {
 function latestTime() {
   return web3.eth.getBlock("latest").timestamp;
 }
-async function liveDeploy(deployer, accounts) {
-  const BigNumber = web3.BigNumber;
 
-  const RATE = 1;
-  const startTime = latestTime() + duration.minutes(1);
-  const endTime = startTime + duration.weeks(1);
-  const CAP = 10000;
-  console.log([startTime, endTime, RATE, accounts[0]]);
-  return deployer.deploy(BlitzCrowdsaleToken).then(() =>
-    deployer
-      .deploy(
-        BlitzCrowdsale,
-        startTime,
-        endTime,
-        RATE,
-        accounts[0],
-        CAP,
-        BlitzCrowdsaleToken.address,
-        10000
-      )
-      .then(() => {
-        console.log("BlitzCrowdsale Address", BlitzCrowdsale);
-      })
+const RATE = new web3.BigNumber(1);
+const GOAL = ether(10);
+const CAP = ether(20);
+const openingTime = latestTime() + duration.seconds(10);
+const closingTime = openingTime + duration.weeks(1);
+const afterClosingTime = closingTime + duration.seconds(1);
+
+async function deployBlitzToken(deployer, accounts) {
+  const owner = accounts[0]
+  const wallet = accounts[0]
+
+  let token = await BlitzCrowdsaleToken.new({ from: owner });
+  let vault = await RefundVault.new(wallet, { from: owner });
+
+  let crowdsale = await BlitzCrowdsale.new(
+    openingTime, closingTime, RATE, wallet, CAP, token.address, GOAL
   );
+  console.log('====================================');
+  console.log("The address " + crowdsale.address);
+  console.log('====================================');
+  await token.transferOwnership(crowdsale.address);
+  await vault.transferOwnership(crowdsale.address);
+  const openingTime2 = await crowdsale.openingTime();
+  const closingTime2 = await crowdsale.closingTime();
+  const rate2 = await crowdsale.rate();
+  const walletAddress2 = await crowdsale.wallet();
+  const goal2 = await crowdsale.goal();
+  const cap2 = await crowdsale.cap();
+  
 
-  // uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet)
+  console.log("cap " + cap2);
+  console.log("goal " + goal2);
+  console.log("walletAddress " + walletAddress2);  
+  console.log("rate " + rate2);
+  console.log("closingTime " + closingTime2);
+  console.log("openingTime " + openingTime2);
 }
+

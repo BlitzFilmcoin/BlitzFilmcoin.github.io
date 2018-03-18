@@ -8,7 +8,7 @@ export const BUY_TOKKEN_PENDING = "BUY_TOKKEN_PENDING";
 export const BUY_TOKKEN_FULFILLED = "BUY_TOKKEN_FULFILLED";
 export const BUY_TOKKEN_REJECTED = "BUY_TOKKEN_REJECTED";
 
-export function buyToken(amount=0.1) {
+export function buyToken(amount=1) {
   // Double-check web3's status.
 
   return function(dispatch) {
@@ -18,6 +18,8 @@ export function buyToken(amount=0.1) {
     if (typeof web3 !== "undefined") {
       // Using truffle-contract we create the blitz object.
       const blitz = contract(BlitzCrowdsaleContract);
+
+
       blitz.setProvider(web3.currentProvider);
 
       // Declaring this for later so we can chain functions on Authentication.
@@ -32,25 +34,47 @@ export function buyToken(amount=0.1) {
           console.error(error);
         }
 
-        blitz.deployed().then(async function(instance) {
+        blitz.at("0x8edccfba4dc45d83aab52933d0d5164a98894967").then(async function(instance) {
+
           blitzInstance = instance;
           console.log('====================================');
           console.log("Attempt to buy token.");
           console.log('====================================');
           // Attempt to buy token.
           try {
-            let result = await blitzInstance.buyTokens(coinbase, {
-              value: web3.toWei(amount, "ether"),
-              from: coinbase
-            });
+            const test = await blitzInstance;
+console.log('====================================');
+console.log(blitzInstance);
+console.log('====================================');
+            const openingTime = await blitzInstance.openingTime();
+            const closingTime = await blitzInstance.closingTime();
+            const rate = await blitzInstance.rate();
+            const walletAddress = await blitzInstance.wallet();
+            const goal = await blitzInstance.goal();
+            const cap = await blitzInstance.cap();
+            
+
+            console.log("cap " + cap);
+            console.log("goal " + goal);
+            console.log("walletAddress " + walletAddress);  
+            console.log("rate " + rate);
+            console.log("closingTime " + closingTime);
+            console.log("openingTime " + openingTime);
+            let weiRaised2 =  await blitzInstance.weiRaised()
+            
+            console.log("Wei Raised  " + weiRaised2);
+
+            let result = await blitzInstance.buyTokens(coinbase, { value:  web3.toWei(amount, "ether"), from: coinbase });
+
+            console.log("Bought token " + result);
             let weiRaised =  await blitzInstance.weiRaised()
             
             console.log("Wei Raised  " + weiRaised);
 
-            console.log("Bought token " + result);
+            
             dispatch({
               type: BUY_TOKKEN_FULFILLED,
-              payload: result
+              payload: "ressult"
             });
           } catch (error) {
             console.error(error)
@@ -66,7 +90,6 @@ export function buyToken(amount=0.1) {
     } else {
       console.error("did not work")
       dispatch({
-        
         type: BUY_TOKKEN_REJECTED,
         payload: { error: "Web3 is not initialized." }
       });
