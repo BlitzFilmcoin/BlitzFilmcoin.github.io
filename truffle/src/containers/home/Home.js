@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {Doughnut} from 'react-chartjs-2';
 
 import BuyButton from "../../components/buybutton/BuyButton";
 import Stats from "../../components/stats/Stats";
@@ -9,22 +10,33 @@ class Home extends Component {
   render() {
     let webBool = !!this.props.web3;
     let hasStats = !!this.props.stats;
+    const data = {
+        labels: [
+            'Raised',
+            'Goal',
+            'Cap'
+        ],
+        datasets: [{
+            data: [this.props.stats.weiRaised, (this.props.stats.cap-this.props.stats.goal), (this.props.stats.goal-this.props.stats.weiRaised)],
+            backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+            ],
+            hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+            ]
+        }]
+    };
     
     return (
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1">
             <h1>Good to Go!</h1>
-            <p>
-              Check out if we can interact with our contract. Install with:{" "}
-              <br />
-              npm install <br />
-              npm install truffle -g <br />
-              truffle compile <br />
-              truffle migrate<br />
-              npm start<br />
-            </p>
-
+            <Doughnut data={data} />
             <BuyButton />
             {webBool ? (
               <div>
