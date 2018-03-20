@@ -1,13 +1,6 @@
-import { connect } from "react-redux";
-import { getCrowdsaleStats } from "../../action";
-
 import React, { Component } from "react";
 
 class Stats extends Component {
-  componentWillMount = () => {
-    //this.props.getCrowdsaleStats(this.props.web3);
-  };
-
   render() {
     return (
       <div>
@@ -23,9 +16,4 @@ class Stats extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-  };
-};
-
-export default connect(mapStateToProps, { getCrowdsaleStats })(Stats);
+export default Stats;

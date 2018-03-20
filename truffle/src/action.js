@@ -1,85 +1,65 @@
 import BlitzCrowdsaleContract from "../build/contracts/BlitzCrowdsale.json";
-import { browserHistory } from "react-router";
-import store from "./store";
-
 const contract = require("truffle-contract");
 
 export const CROWDSALE_STATS_PENDING = "CROWDSALE_STATS_PENDING";
 export const CROWDSALE_STATS_FULFILLED = "CROWDSALE_STATS_FULFILLED";
 export const CROWDSALE_STATS_REJECTED = "CROWDSALE_STATS_REJECTED";
 
-export function getCrowdsaleStats(web3) {
-  // Double-check web3's status.
+export const CROWDSALE_CONTRACT_INSTANTIATED = "CROWDSALE_CONTRACT_INSTANTIATED";
 
-  return function(dispatch) {
-    dispatch({ type: CROWDSALE_STATS_PENDING });
-
-    if (typeof web3 !== "undefined") {
-  // Using truffle-contract we create the blitz object.
-      const blitz = contract(BlitzCrowdsaleContract);
-
-      blitz.setProvider(web3.currentProvider);
-
-      // Declaring this for later so we can chain functions on Authentication.
-      var blitzInstance;
-
-      // Get current ethereum wallet.
-      web3.eth.getCoinbase((error, coinbase) => {
-        // Log errors, if any.
-
-        if (error) {
-          dispatch({ type: CROWDSALE_STATS_REJECTED, payload: error });
-          console.error(error);
-        }
-
-        blitz
-          .at("0xd86db945de9dfbc5d7bd2e9dac3d13218d4826d2")
-          .then(async function(instance) {
-            blitzInstance = instance;
-            console.log("====================================");
-            console.log("Getting crowdsale stats.");
-            console.log("====================================");
-            // Attempt to buy token.
-            try {
-              const openingTime = await blitzInstance.openingTime();
-              const closingTime = await blitzInstance.closingTime();
-              const rate = await blitzInstance.rate();
-              const walletAddress = await blitzInstance.wallet();
-              const goal = await blitzInstance.goal();
-              const cap = await blitzInstance.cap();
-              const weiRaised = await blitzInstance.weiRaised();
-
-              console.log("cap " + cap);
-              console.log("goal " + goal);
-              console.log("walletAddress " + walletAddress);
-              console.log("rate " + rate);
-              console.log("closingTime " + closingTime);
-              console.log("openingTime " + openingTime);
-              console.log("Wei Raised  " + weiRaised);
-
-              dispatch({
-                type: CROWDSALE_STATS_FULFILLED,
-                payload: {
-                  openingTime: openingTime,
-                  closingTime: closingTime,
-                  rate: rate,
-                  walletAddress: walletAddress,
-                  goal: goal,
-                  cap: cap,
-                  weiRaised: weiRaised
-                }
-              });
-            } catch (error) {
-              console.error(error);
-              dispatch({
-                type: CROWDSALE_STATS_REJECTED,
-                payload: {
-                  error: "Wallet " + coinbase + " does not have an account!"
-                }
-              });
-            }
-          });
+export function instantiateCrowdsaleContract() {
+  return (dispatch, getState) => {
+    const web3 = getState().web3.web3Instance;
+    const crowdsale = contract(BlitzCrowdsaleContract);
+    crowdsale.setProvider(web3.currentProvider);
+    return crowdsale
+      .at("0x01270381a82c2f6db58f823dc864eeca3bb999d6")
+      .then(crowdsaleContract => {
+        dispatch({
+          type: CROWDSALE_CONTRACT_INSTANTIATED,
+          payload: crowdsaleContract
+        });
       });
+  };
+}
+
+export function getCrowdsaleStats() {
+  return async function(dispatch, getState) {
+    dispatch({ type: CROWDSALE_STATS_PENDING });
+    if (typeof getState().web3.crowdsale !== "undefined") {
+      let crowdsale = getState().web3.crowdsale;
+        
+      //Get all the stats
+      try {
+        const openingTime = await crowdsale.openingTime();
+        const closingTime = await crowdsale.closingTime();
+        const rate = await crowdsale.rate();
+        const walletAddress = await crowdsale.wallet();
+        const goal = await crowdsale.goal();
+        const cap = await crowdsale.cap();
+        const weiRaised = await crowdsale.weiRaised();
+
+        dispatch({
+          type: CROWDSALE_STATS_FULFILLED,
+          payload: {
+            openingTime: openingTime,
+            closingTime: closingTime,
+            rate: rate,
+            walletAddress: walletAddress,
+            goal: goal,
+            cap: cap,
+            weiRaised: weiRaised
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        dispatch({
+          type: CROWDSALE_STATS_REJECTED,
+          payload: {
+            error: "CROWDSALE_STATS_REJECTED"
+          }
+        });
+      }
     } else {
       console.error("did not work");
       dispatch({
