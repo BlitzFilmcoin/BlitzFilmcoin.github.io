@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import getWeb3 from './util/web3/getWeb3'
-
+import getCrowdsaleStats  from './action'
 // Layouts
 import App from './App'
 import Home from './layouts/home/Home'
@@ -20,8 +20,12 @@ const history = syncHistoryWithStore(browserHistory, store)
 getWeb3
 .then(results => {
   console.log('Web3 initialized!')
+  getCrowdsaleStats(results.payload.web3Instance)
 })
-.catch(() => {
+.catch((err) => {
+  console.log('====================================');
+  console.log(err);
+  console.log('====================================');
   console.log('Error in web3 initialization.')
 })
 

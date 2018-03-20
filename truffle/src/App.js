@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
-
+import { connect } from "react-redux";
+import { getCrowdsaleStats } from "./action";
 class App extends Component {
+  componentDidMount() {
+    // Initialize web3 and set in Redux.
+    this.props.getCrowdsaleStats();
 
+  }
   render() {
     return (
       <div className="App">
@@ -18,6 +23,8 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {};
+};
 
-
-export default App;
+export default connect(mapStateToProps, { getCrowdsaleStats })(App);

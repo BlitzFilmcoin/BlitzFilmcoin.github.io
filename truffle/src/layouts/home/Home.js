@@ -4,14 +4,12 @@ import { connect } from "react-redux";
 import BuyButton from "../../components/buybutton/BuyButton";
 import Stats from "../../components/stats/Stats";
 import Countdown from "react-countdown-now";
-
+import { getCrowdsaleStats } from '../../action'
 class Home extends Component {
-  componentDidMount() {
-    //get data
-  }
   render() {
     let webBool = !!this.props.web3;
-
+    let hasStats = !!this.props.stats;
+    
     return (
       <main className="container">
         <div className="pure-g">
@@ -31,7 +29,7 @@ class Home extends Component {
             {webBool ? (
               <div>
                 <Stats web3={this.props.web3} stats={this.props.stats} />
-                {this.props.stats ? (
+                {hasStats ? (
                   <Countdown date={this.props.stats.closingTime * 1000} />
                 ) : (
                   "Stats not loaded yet."
@@ -54,4 +52,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, { getCrowdsaleStats })(Home);

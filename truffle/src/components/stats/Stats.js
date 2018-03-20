@@ -5,7 +5,7 @@ import React, { Component } from "react";
 
 class Stats extends Component {
   componentWillMount = () => {
-    this.props.getCrowdsaleStats(this.props.web3);
+    //this.props.getCrowdsaleStats(this.props.web3);
   };
 
   render() {
