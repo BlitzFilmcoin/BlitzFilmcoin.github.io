@@ -1,4 +1,4 @@
-import BlitzCrowdsaleContract from "../build/contracts/BlitzCrowdsale.json";
+import BlitzCrowdsaleContract from "../../build/contracts/BlitzCrowdsale.json";
 const contract = require("truffle-contract");
 
 export const CROWDSALE_STATS_PENDING = "CROWDSALE_STATS_PENDING";
@@ -70,3 +70,61 @@ export function getCrowdsaleStats() {
     }
   };
 }
+
+
+export function getNewStats() {
+    return  function(dispatch, getState) {
+      dispatch({ type: CROWDSALE_STATS_PENDING });
+      if (typeof getState().web3.crowdsale !== "undefined") {
+        let crowdsale = getState().web3.crowdsale;
+        var tokenPurchaseEvent = crowdsale.TokenPurchase();
+
+        //Get all the stats
+        try {
+            tokenPurchaseEvent.watch(async function(error, result){
+                if (!error)
+                    {
+                        const openingTime = await crowdsale.openingTime();
+                        const closingTime = await crowdsale.closingTime();
+                        const rate = await crowdsale.rate();
+                        const walletAddress = await crowdsale.wallet();
+                        const goal = await crowdsale.goal();
+                        const cap = await crowdsale.cap();
+                        const weiRaised = await crowdsale.weiRaised();
+                
+                        dispatch({
+                          type: CROWDSALE_STATS_FULFILLED,
+                          payload: {
+                            openingTime: openingTime,
+                            closingTime: closingTime,
+                            rate: rate,
+                            walletAddress: walletAddress,
+                            goal: goal,
+                            cap: cap,
+                            weiRaised: weiRaised
+                          }
+                        });
+                    } else {
+                        console.log(error);
+                    }
+            });
+         
+        } catch (error) {
+          console.error(error);
+          dispatch({
+            type: CROWDSALE_STATS_REJECTED,
+            payload: {
+              error: "CROWDSALE_STATS_REJECTED"
+            }
+          });
+        }
+      } else {
+        console.error("did not work");
+        dispatch({
+          type: CROWDSALE_STATS_REJECTED,
+          payload: { error: "Web3 is not initialized." }
+        });
+        console.error("Web3 is not initialized.");
+      }
+    };
+  }

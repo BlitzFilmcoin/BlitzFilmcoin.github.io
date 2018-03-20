@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import BuyButton from "../../components/buybutton/BuyButton";
 import Stats from "../../components/stats/Stats";
 import Countdown from "react-countdown-now";
-import { getCrowdsaleStats } from '../../action'
+import { getCrowdsaleStats } from '../../core/action'
 class Home extends Component {
   render() {
     let webBool = !!this.props.web3;

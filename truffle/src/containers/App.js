@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
-import { getCrowdsaleStats, instantiateCrowdsaleContract } from "./action";
-import getWeb3 from "./util/web3/getWeb3";
+import {
+  getCrowdsaleStats,
+  instantiateCrowdsaleContract,
+  getNewStats
+} from "../core/action";
+import getWeb3 from "../core/util/web3/getWeb3";
 
 class App extends Component {
   componentDidMount() {
@@ -10,12 +14,13 @@ class App extends Component {
     getWeb3
       .then(async results => {
         console.log("Web3 initialized!");
-        await this.props.instantiateCrowdsaleContract()
-        await this.props.getCrowdsaleStats()
+        await this.props.instantiateCrowdsaleContract();
+        await this.props.getCrowdsaleStats();
+        await this.props.getNewStats();
       })
       .catch(err => {
         console.log("Error in web3 initialization.");
-        console.log(err);        
+        console.log(err);
       });
   }
   render() {
@@ -37,4 +42,8 @@ const mapStateToProps = (state, ownProps) => {
   return {};
 };
 
-export default connect(mapStateToProps, { getCrowdsaleStats, instantiateCrowdsaleContract })(App);
+export default connect(mapStateToProps, {
+  getCrowdsaleStats,
+  instantiateCrowdsaleContract,
+  getNewStats
+})(App);
