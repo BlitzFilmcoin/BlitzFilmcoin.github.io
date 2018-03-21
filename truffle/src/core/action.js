@@ -21,7 +21,7 @@ export function instantiateCrowdsaleContract() {
     return (
       crowdsale
         //.deployed()
-        .at("0xb7e2462f5e36ba6cfffa9a6daf9ba6387a6a2525")
+        .at("0xa64dbea0da2f3f32ab189573d6a1a8454f5a2146")
         .then(crowdsaleContract => {
           dispatch({
             type: CROWDSALE_CONTRACT_INSTANTIATED,
@@ -40,7 +40,7 @@ export function instantiateTokenContract() {
     return (
       token
         //.deployed()
-        .at("0x37b50b26900b6f3b5244e421cbb039df3fe0b39a")
+        .at("0x9169e8fca8659632b820b00b30c490aedc890a65")
         .then(tokenContract => {
           dispatch({
             type: "TOKEN_CONTRACT_INSTANTIATED",
@@ -66,12 +66,10 @@ export function getTokenStats() {
       try {
         const balance = await token.balanceOf(coinbase);
         const totalSupply = await token.totalSupply();
-        console.log('====================================');
         console.log({
           balance: balance,
           totalSupply: totalSupply,
         });
-        console.log('====================================');
         dispatch({
           type: TOKEN_STATS_FULFILLED,
           payload: {

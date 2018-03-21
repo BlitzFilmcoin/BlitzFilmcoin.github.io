@@ -13,6 +13,7 @@ class Home extends Component {
   render() {
     let webBool = !!this.props.web3;
     let hasStats = !!this.props.stats;
+    let balance = !!this.props.tokenStats? this.props.tokenStats.balance: 0 
     const data = {
 
         labels: [
@@ -22,7 +23,7 @@ class Home extends Component {
             'Cap'
         ],
         datasets: [{
-            data: [this.props.tokenStats,this.props.stats.weiRaised-this.props.tokenStats, (this.props.stats.cap-this.props.stats.goal), (this.props.stats.goal-this.props.stats.weiRaised)],
+            data: [ balance,this.props.stats.weiRaised-balance, (this.props.stats.cap-this.props.stats.goal), (this.props.stats.goal-this.props.stats.weiRaised)],
             backgroundColor: [
             '#FF6384',
             '#36A2EB',
