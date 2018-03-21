@@ -1,7 +1,8 @@
 const initialState = {
   web3Instance: null,
   crowdsale: null,
-  token: null
+  token: null,
+  network: null
 };
 
 const web3Reducer = (state = initialState, action) => {
@@ -21,7 +22,12 @@ const web3Reducer = (state = initialState, action) => {
         token: action.payload
       });
     }
-    
+    case "NETWORK_FETCHED_FULLFILED": {
+      return Object.assign({}, state, {
+        network: action.payload
+      });
+    }
+
     default:
       return state;
   }

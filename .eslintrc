@@ -1,0 +1,9 @@
+{
+  "plugins": ["react","jsx-a11y",
+    "import"],
+  "rules": {
+    "no-unused-vars": 0,
+    "max-len": [1, 140, 2, { ignoreComments: true }],
+    "prop-types": [2]
+  }
+}

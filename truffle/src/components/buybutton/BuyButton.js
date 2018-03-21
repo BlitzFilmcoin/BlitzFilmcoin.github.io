@@ -1,15 +1,18 @@
 import { connect } from "react-redux";
 import { buyToken } from "./BuyButtonActions";
+import { Button } from "semantic-ui-react";
 
 import React from "react";
 
 const BuyButton = ({ buyToken }) => {
   return (
-    <div >
-      <a href="#" onClick={event => buyToken()}>
-        Buy Button
-      </a>
-    </div>
+    <Button
+      size="huge"
+      style={{ backgroundColor: "#d45c54", color: "white" }}
+      onClick={event => buyToken()}
+    >
+      Buy Blitz Token!
+    </Button>
   );
 };
 

@@ -6,7 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 // Layouts
 import App from './containers/App'
 import Home from './containers/home/Home'
-
+import 'semantic-ui-css/semantic.min.css';
 
 // Redux Store
 import store from './core/store'

@@ -51,8 +51,6 @@ export function instantiateTokenContract() {
   };
 }
 
-
-
 export function getTokenStats() {
   return async function(dispatch, getState) {
     dispatch({ type: TOKEN_STATS_PENDING });
@@ -68,13 +66,13 @@ export function getTokenStats() {
         const totalSupply = await token.totalSupply();
         console.log({
           balance: balance,
-          totalSupply: totalSupply,
+          totalSupply: totalSupply
         });
         dispatch({
           type: TOKEN_STATS_FULFILLED,
           payload: {
             balance: balance,
-            totalSupply: totalSupply,
+            totalSupply: totalSupply
           }
         });
       } catch (error) {
@@ -124,7 +122,7 @@ export function getCrowdsaleStats() {
             goal: goal,
             cap: cap,
             weiRaised: weiRaised,
-            toke: token
+            token: token
           }
         });
       } catch (error) {
@@ -171,5 +169,39 @@ export function getNewStats() {
       });
       console.error("Web3 is not initialized.");
     }
+  };
+}
+
+export function getNetwork() {
+  return  function(dispatch, getState) {
+    let web3 = getState().web3.web3Instance;
+    web3.version.getNetwork((err, networkId) => {
+        let msg = "";
+        console.log(networkId)
+        switch (networkId) {
+          case "1":
+            msg = "This is mainnet";
+            break;
+          case "2":
+            msg = "This is the deprecated Morden test network.";
+            break;
+          case "3":
+            msg = "This is the ropsten test network.";
+            break;
+          case "4":
+            msg = "This is the Rinkeby test network.";
+            break;
+          case "42":
+            msg = "This is the Kovan test network.";
+            break;
+          default:
+            msg = "This is an unknown network.";
+        }
+        dispatch({
+            type: "NETWORK_FETCHED_FULLFILED",
+            payload: { msg: msg, id: networkId }
+          });
+    })
+  
   };
 }
