@@ -7,7 +7,9 @@ import {
   getNewStats
 } from "../core/action";
 import getWeb3 from "../core/util/web3/getWeb3";
-
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 class App extends Component {
   componentDidMount() {
     // Initialize web3 and set in Redux.
@@ -25,17 +27,11 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-          <ul className="pure-menu-list navbar-right" />
-          <Link to="/" className="pure-menu-heading pure-menu-link">
-            Truffle Box
-          </Link>
-        </nav>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                {this.props.children}
 
-        {this.props.children}
-      </div>
-    );
+      </MuiThemeProvider>
+       );
   }
 }
 const mapStateToProps = (state, ownProps) => {
