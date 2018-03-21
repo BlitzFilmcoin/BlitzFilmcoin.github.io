@@ -1,6 +1,7 @@
 const initialState = {
   web3Instance: null,
-  crowdsale: null
+  crowdsale: null,
+  token: null
 };
 
 const web3Reducer = (state = initialState, action) => {
@@ -15,7 +16,12 @@ const web3Reducer = (state = initialState, action) => {
         crowdsale: action.payload
       });
     }
-
+    case "TOKEN_CONTRACT_INSTANTIATED": {
+      return Object.assign({}, state, {
+        token: action.payload
+      });
+    }
+    
     default:
       return state;
   }

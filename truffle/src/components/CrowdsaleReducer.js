@@ -11,6 +11,10 @@ export const CROWDSALE_STATS_PENDING = "CROWDSALE_STATS_PENDING";
 export const CROWDSALE_STATS_FULFILLED = "CROWDSALE_STATS_FULFILLED";
 export const CROWDSALE_STATS_REJECTED = "CROWDSALE_STATS_REJECTED";
 
+export const TOKEN_STATS_PENDING = "TOKEN_STATS_PENDING";
+export const TOKEN_STATS_FULFILLED = "TOKEN_STATS_FULFILLED";
+export const TOKEN_STATS_REJECTED = "TOKEN_STATS_REJECTED";
+
 const crowdsaleReducer = (state = initialState, action) => {
   switch (action.type) {
     case BUY_TOKKEN_PENDING: {
@@ -33,6 +37,17 @@ const crowdsaleReducer = (state = initialState, action) => {
     case CROWDSALE_STATS_FULFILLED: {
       return Object.assign({}, state, {
         stats: action.payload
+      });
+    }
+    case TOKEN_STATS_PENDING: {
+      return state;
+    }
+    case TOKEN_STATS_REJECTED: {
+      return state;
+    }
+    case TOKEN_STATS_FULFILLED: {
+      return Object.assign({}, state, {
+        token: action.payload
       });
     }
     default:

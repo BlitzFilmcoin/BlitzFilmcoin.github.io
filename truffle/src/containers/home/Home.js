@@ -14,18 +14,30 @@ class Home extends Component {
     let webBool = !!this.props.web3;
     let hasStats = !!this.props.stats;
     const data = {
-      labels: ["Raised", "Goal", "Cap"],
-      datasets: [
-        {
-          data: [
-            this.props.stats.weiRaised,
-            this.props.stats.cap - this.props.stats.goal,
-            this.props.stats.goal - this.props.stats.weiRaised
-          ],
-          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-        }
-      ]
+
+        labels: [
+          'You',
+            'Raised',
+            'Goal',
+            'Cap'
+        ],
+        datasets: [{
+            data: [this.props.tokenStats,this.props.stats.weiRaised-this.props.tokenStats, (this.props.stats.cap-this.props.stats.goal), (this.props.stats.goal-this.props.stats.weiRaised)],
+            backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4842f4',
+
+            ],
+            hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4842f4',
+
+            ]
+        }]
     };
 
     return (
@@ -57,7 +69,8 @@ class Home extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     web3: state.web3.web3Instance,
-    stats: state.crowdsale.stats
+    stats: state.crowdsale.stats,
+    tokenStats: state.crowdsale.token
   };
 };
 
